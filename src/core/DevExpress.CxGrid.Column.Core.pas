@@ -22,6 +22,7 @@ const
 var
   I, NewWidth: Integer;
 begin
+  AColumn.MinWidth := AColumn.Width;
   if AMaxWidth <> 0 then
     NewWidth := AMaxWidth - SCROLL_WIDTH
   else
