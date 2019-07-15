@@ -12,7 +12,7 @@ type
 
 implementation
 
-uses Vcl.Forms;
+uses Vcl.Forms, Vcl.Controls;
 
 { TDevExpressCxGridColumn }
 
@@ -27,8 +27,8 @@ begin
     NewWidth := AMaxWidth - SCROLL_WIDTH
   else
   begin
-    if AColumn.Owner is TForm then
-      NewWidth := (AColumn.Owner as TForm).Width - SCROLL_WIDTH
+    if AColumn.Owner is TWinControl then
+      NewWidth := (AColumn.Owner as TWinControl).Width - SCROLL_WIDTH
     else
       NewWidth := Application.MainForm.Width - SCROLL_WIDTH;
   end;
