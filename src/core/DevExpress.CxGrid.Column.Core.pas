@@ -2,23 +2,19 @@ unit DevExpress.CxGrid.Column.Core;
 
 interface
 
-uses DevExpress.CxGrid.Column.Intf, cxGridDBTableView;
+uses DevExpress.CxGrid.Column.Intf, cxGridDBTableView, Vcl.Forms, Vcl.Controls, DevExpress.Consts;
 
 type
   TDevExpressCxGridColumn = class(TInterfacedObject, IDevExpressCxGridColumn)
   private
     procedure AdjustColumnSize(const AColumn: TcxGridDBColumn; const AMaxWidth: Integer = 0);
+  public
+    class function New: IDevExpressCxGridColumn;
   end;
 
 implementation
 
-uses Vcl.Forms, Vcl.Controls;
-
-{ TDevExpressCxGridColumn }
-
 procedure TDevExpressCxGridColumn.AdjustColumnSize(const AColumn: TcxGridDBColumn; const AMaxWidth: Integer = 0);
-const
-  SCROLL_WIDTH = 35;
 var
   I, NewWidth: Integer;
 begin
@@ -27,15 +23,20 @@ begin
     NewWidth := AMaxWidth - SCROLL_WIDTH
   else
   begin
-    if AColumn.Owner is TWinControl then
-      NewWidth := (AColumn.Owner as TWinControl).Width - SCROLL_WIDTH
+    if AColumn.Owner.InheritsFrom(TWinControl) then
+      NewWidth := TWinControl(AColumn.Owner).Width - SCROLL_WIDTH
     else
       NewWidth := Application.MainForm.Width - SCROLL_WIDTH;
   end;
   for I := 0 to Pred(AColumn.GridView.ColumnCount) do
-    if (AColumn.GridView.Columns[I].Name <> AColumn.Name) then
+    if (AColumn.GridView.Columns[I] <> AColumn) then
       NewWidth := NewWidth - AColumn.GridView.Columns[I].Width;
   AColumn.Width := NewWidth;
+end;
+
+class function TDevExpressCxGridColumn.New: IDevExpressCxGridColumn;
+begin
+  Result := TDevExpressCxGridColumn.Create;
 end;
 
 end.

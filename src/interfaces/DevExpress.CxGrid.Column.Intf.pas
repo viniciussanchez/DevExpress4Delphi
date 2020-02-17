@@ -9,7 +9,7 @@ type
   ///   Interface that represents the features of a column of cxgrid.
   /// </summary>
   IDevExpressCxGridColumn = interface
-    ['{24395D62-DBEB-4627-BEC2-04BC214A30A8}']
+    ['{F6E16258-2178-4F61-BDF6-1BC476B6E20B}']
     /// <summary>
     ///   Adjust the size of the column to fill any remaining space.
     /// </summary>

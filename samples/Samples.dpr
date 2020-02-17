@@ -8,7 +8,10 @@ uses
   DevExpress.Helper in '..\src\helpers\DevExpress.Helper.pas',
   DevExpress.CxGrid.Column.Intf in '..\src\interfaces\DevExpress.CxGrid.Column.Intf.pas',
   DevExpress.CxGrid.Intf in '..\src\interfaces\DevExpress.CxGrid.Intf.pas',
-  DevExpress.Types in '..\src\types\DevExpress.Types.pas';
+  DevExpress.Types in '..\src\types\DevExpress.Types.pas',
+  DevExpress.CxGrid.Band.Intf in '..\src\interfaces\DevExpress.CxGrid.Band.Intf.pas',
+  DevExpress.CxGrid.Band.Core in '..\src\core\DevExpress.CxGrid.Band.Core.pas',
+  DevExpress.Consts in '..\src\const\DevExpress.Consts.pas';
 
 {$R *.res}
 
