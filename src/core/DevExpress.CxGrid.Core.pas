@@ -2,39 +2,42 @@ unit DevExpress.CxGrid.Core;
 
 interface
 
-uses DevExpress.CxGrid.Intf, CxGrid, DevExpress.Types;
+uses DevExpress.CxGrid.Intf, CxGrid, DevExpress.Types, Vcl.Dialogs, System.SysUtils, Winapi.ShellAPI, cxGridExportLink,
+  Winapi.Windows;
 
 type
   TDevExpressCxGrid = class(TInterfacedObject, IDevExpressCxGrid)
   private
-    procedure SaveToFile(const AGrid: TcxGrid; const AFileType: TDevExpress4DelphiFileType = TDevExpress4DelphiFileType.Excel;
-      const AExpand: Boolean = True; const AOpenFileAfter: Boolean = True);
+    procedure SaveToFile(const AGrid: TcxGrid; const AFileType: TDevExpress4DelphiFileType; const AExpand, AOpenFileAfter: Boolean);
+  public
+    class function New: IDevExpressCxGrid;
   end;
 
 implementation
 
-uses Vcl.Dialogs, System.SysUtils, Winapi.ShellAPI, cxGridExportLink, Winapi.Windows;
-
-{ TDevExpressCxGrid }
+class function TDevExpressCxGrid.New: IDevExpressCxGrid;
+begin
+  Result := TDevExpressCxGrid.Create;
+end;
 
 procedure TDevExpressCxGrid.SaveToFile(const AGrid: TcxGrid; const AFileType: TDevExpress4DelphiFileType; const AExpand,
   AOpenFileAfter: Boolean);
 var
-  SaveDialog: TSaveDialog;
+  LSaveDialog: TSaveDialog;
 begin
-  SaveDialog := TSaveDialog.Create(nil);
+  LSaveDialog := TSaveDialog.Create(nil);
   try
-    SaveDialog.Filter := AFileType.GetDialogFilter;
-    SaveDialog.DefaultExt := AFileType.GetFileExt;
-    SaveDialog.InitialDir := ExtractFilePath(ParamStr(0));
-    if SaveDialog.Execute then
+    LSaveDialog.Filter := AFileType.GetDialogFilter;
+    LSaveDialog.DefaultExt := AFileType.GetFileExt;
+    LSaveDialog.InitialDir := ExtractFilePath(ParamStr(0));
+    if LSaveDialog.Execute then
     begin
-      ExportGridToXLSX(SaveDialog.FileName, AGrid, AExpand);
+      ExportGridToXLSX(LSaveDialog.FileName, AGrid, AExpand);
       if AOpenFileAfter then
-        ShellExecute(0, 'open', pchar(SaveDialog.FileName), nil, nil, SW_SHOW);
+        ShellExecute(0, 'open', pchar(LSaveDialog.FileName), nil, nil, SW_SHOW);
     end;
   finally
-    SaveDialog.Free;
+    LSaveDialog.Free;
   end;
 end;
 

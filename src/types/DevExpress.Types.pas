@@ -7,7 +7,7 @@ type
   /// <summary>
   ///  Supported file types to save.
   /// </summary>
-  TDevExpress4DelphiFileType = (Excel, TXT, HTML, XML);
+  TDevExpress4DelphiFileType = (EXCEL, TXT, HTML, XML);
 {$SCOPEDENUMS OFF}
 
   /// <summary>
@@ -32,12 +32,10 @@ type
 
 implementation
 
-{ TDevExpress4DelphiFileTypeHelper }
-
 function TDevExpress4DelphiFileTypeHelper.GetDialogFilter: string;
 begin
   case Self of
-    TDevExpress4DelphiFileType.Excel:
+    TDevExpress4DelphiFileType.EXCEL:
       Result := 'Excel (*.xlsx) |*.xlsx';
     TDevExpress4DelphiFileType.TXT:
       Result := 'Text file (*.txt) |*.txt';
@@ -51,7 +49,7 @@ end;
 function TDevExpress4DelphiFileTypeHelper.GetFileExt: string;
 begin
   case Self of
-    TDevExpress4DelphiFileType.Excel:
+    TDevExpress4DelphiFileType.EXCEL:
       Result := 'xlsx';
     TDevExpress4DelphiFileType.TXT:
       Result := 'txt';

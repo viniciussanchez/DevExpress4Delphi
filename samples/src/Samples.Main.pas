@@ -17,35 +17,38 @@ uses
   cxEdit, cxNavigator, cxDataControllerConditionalFormattingRulesManagerDialog, Data.DB, cxDBData, FireDAC.Stan.Intf,
   FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, cxGridLevel, cxClasses, cxGridCustomView, cxGridCustomTableView, cxGridTableView,
-  cxGridDBTableView, cxGrid, Vcl.StdCtrls, Vcl.ExtCtrls;
+  cxGridDBTableView, cxGrid, Vcl.StdCtrls, Vcl.ExtCtrls, cxGridBandedTableView, cxGridDBBandedTableView;
 
 type
   TFrmSamples = class(TForm)
-    cxGrid1DBTableView1: TcxGridDBTableView;
-    cxGrid1Level1: TcxGridLevel;
-    cxGrid1: TcxGrid;
+    GridColumnSampleDBTableView: TcxGridDBTableView;
+    GridColumnSampleLevel: TcxGridLevel;
+    GridColumnSample: TcxGrid;
     mtSamples: TFDMemTable;
     dsSamples: TDataSource;
     mtSamplesID: TIntegerField;
     mtSamplesNAME: TStringField;
-    cxGrid1DBTableView1ID: TcxGridDBColumn;
-    cxGrid1DBTableView1NAME: TcxGridDBColumn;
+    GridColumnSampleDBTableViewID: TcxGridDBColumn;
+    GridColumnSampleDBTableViewNAME: TcxGridDBColumn;
     Panel1: TPanel;
     Button1: TButton;
     Button2: TButton;
     Button3: TButton;
     Button4: TButton;
     Button5: TButton;
+    GridBandSample: TcxGrid;
+    GridBandSampleLevel: TcxGridLevel;
+    GridBandSampleDBBandedTableView: TcxGridDBBandedTableView;
+    GridBandSampleDBBandedTableViewID: TcxGridDBBandedColumn;
+    GridBandSampleDBBandedTableViewNAME: TcxGridDBBandedColumn;
+    Button6: TButton;
     procedure FormCreate(Sender: TObject);
     procedure Button4Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure Button5Click(Sender: TObject);
     procedure Button1Click(Sender: TObject);
-  private
-    { Private declarations }
-  public
-    { Public declarations }
+    procedure Button6Click(Sender: TObject);
   end;
 
 var
@@ -59,45 +62,47 @@ uses DevExpress.Helper;
 
 procedure TFrmSamples.Button1Click(Sender: TObject);
 begin
-  cxGrid1DBTableView1NAME.Resize();
+  GridColumnSampleDBTableViewNAME.Resize();
 end;
 
 procedure TFrmSamples.Button2Click(Sender: TObject);
 begin
-  cxGrid1.ExportToHTML();
+  GridColumnSample.ExportToHTML();
 end;
 
 procedure TFrmSamples.Button3Click(Sender: TObject);
 begin
-  cxGrid1.ExportToTXT();
+  GridColumnSample.ExportToTXT();
 end;
 
 procedure TFrmSamples.Button4Click(Sender: TObject);
 begin
-  cxGrid1.ExportToExcel();
+  GridColumnSample.ExportToExcel();
 end;
 
 procedure TFrmSamples.Button5Click(Sender: TObject);
 begin
-  cxGrid1.ExportToXML();
+  GridColumnSample.ExportToXML();
+end;
+
+procedure TFrmSamples.Button6Click(Sender: TObject);
+begin
+  // You can acess by the band index: GridBandSampleDBBandedTableView.Bands.Items[0].Resize();
+  GridBandSampleDBBandedTableView.Bands.FirstVisibleNonEmpty.Resize();
 end;
 
 procedure TFrmSamples.FormCreate(Sender: TObject);
 var
   I: Integer;
 begin
-  mtSamples.Active := True;
-  cxGrid1DBTableView1.BeginUpdate();
-  try
-    for I := 0 to 20 do
-    begin
-      mtSamples.Append;
-      mtSamplesID.AsInteger := I;
-      mtSamplesNAME.AsString := 'Sample name ' + I.ToString;
-      mtSamples.Post;
-    end;
-  finally
-    cxGrid1DBTableView1.EndUpdate;
+  if not mtSamples.Active then
+    mtSamples.Open;
+  for I := 0 to 20 do
+  begin
+    mtSamples.Append;
+    mtSamplesID.AsInteger := I;
+    mtSamplesNAME.AsString := 'Sample name ' + I.ToString;
+    mtSamples.Post;
   end;
 end;
 

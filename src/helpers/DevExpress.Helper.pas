@@ -2,7 +2,8 @@ unit DevExpress.Helper;
 
 interface
 
-uses CxGrid, DevExpress.Types, cxGridDBTableView;
+uses CxGrid, DevExpress.Types, cxGridDBTableView, cxGridBandedTableView, DevExpress.CxGrid.Core, DevExpress.CxGrid.Column.Core,
+  DevExpress.CxGrid.Band.Core;
 
 type
   /// <summary>
@@ -64,52 +65,49 @@ type
     procedure Resize(const AMaxWidth: Integer = 0);
   end;
 
+  /// <summary>
+  ///   Class helper to TcxGridBand.
+  /// </summary>
+  TcxGridBandHelper = class helper for TcxGridBand
+    /// <summary>
+    ///   Adjust the size of the band to fill any remaining space.
+    /// </summary>
+    /// <param name="AMaxWidth">
+    ///   Maximum band width.
+    /// </param>
+    procedure Resize(const AMaxWidth: Integer = 0);
+  end;
+
 implementation
 
-uses DevExpress.CxGrid.Intf, DevExpress.CxGrid.Core, DevExpress.CxGrid.Column.Intf, DevExpress.CxGrid.Column.Core;
-
-{ TcxGridHelper }
-
 procedure TcxGridHelper.ExportToExcel(const AOpenFileAfter: Boolean = True; const AExpand: Boolean = True);
-var
-  DevExpressCxGrid: IDevExpressCxGrid;
 begin
-  DevExpressCxGrid := TDevExpressCxGrid.Create;
-  DevExpressCxGrid.SaveToFile(Self, TDevExpress4DelphiFileType.Excel, AExpand, AOpenFileAfter);
+  TDevExpressCxGrid.New.SaveToFile(Self, TDevExpress4DelphiFileType.EXCEL, AExpand, AOpenFileAfter);
 end;
 
 procedure TcxGridHelper.ExportToHTML(const AOpenFileAfter, AExpand: Boolean);
-var
-  DevExpressCxGrid: IDevExpressCxGrid;
 begin
-  DevExpressCxGrid := TDevExpressCxGrid.Create;
-  DevExpressCxGrid.SaveToFile(Self, TDevExpress4DelphiFileType.HTML, AExpand, AOpenFileAfter);
+  TDevExpressCxGrid.New.SaveToFile(Self, TDevExpress4DelphiFileType.HTML, AExpand, AOpenFileAfter);
 end;
 
 procedure TcxGridHelper.ExportToTXT(const AOpenFileAfter, AExpand: Boolean);
-var
-  DevExpressCxGrid: IDevExpressCxGrid;
 begin
-  DevExpressCxGrid := TDevExpressCxGrid.Create;
-  DevExpressCxGrid.SaveToFile(Self, TDevExpress4DelphiFileType.TXT, AExpand, AOpenFileAfter);
+  TDevExpressCxGrid.New.SaveToFile(Self, TDevExpress4DelphiFileType.TXT, AExpand, AOpenFileAfter);
 end;
 
 procedure TcxGridHelper.ExportToXML(const AOpenFileAfter, AExpand: Boolean);
-var
-  DevExpressCxGrid: IDevExpressCxGrid;
 begin
-  DevExpressCxGrid := TDevExpressCxGrid.Create;
-  DevExpressCxGrid.SaveToFile(Self, TDevExpress4DelphiFileType.XML, AExpand, AOpenFileAfter);
+  TDevExpressCxGrid.New.SaveToFile(Self, TDevExpress4DelphiFileType.XML, AExpand, AOpenFileAfter);
 end;
 
-{ TcxGridDBColumnHelper }
-
 procedure TcxGridDBColumnHelper.Resize(const AMaxWidth: Integer);
-var
-  DevExpressCxGridColumn: IDevExpressCxGridColumn;
 begin
-  DevExpressCxGridColumn := TDevExpressCxGridColumn.Create;
-  DevExpressCxGridColumn.AdjustColumnSize(Self, AMaxWidth);
+  TDevExpressCxGridColumn.New.AdjustColumnSize(Self, AMaxWidth);
+end;
+
+procedure TcxGridBandHelper.Resize(const AMaxWidth: Integer);
+begin
+  TDevExpressCxGridBand.New.AdjustBandSize(Self, AMaxWidth);
 end;
 
 end.

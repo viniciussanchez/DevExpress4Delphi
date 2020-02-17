@@ -25,7 +25,7 @@ type
     /// <param name="AOpenFileAfter">
     ///   Open file after export. Default is True.
     /// </param>
-    procedure SaveToFile(const AGrid: TcxGrid; const AFileType: TDevExpress4DelphiFileType = TDevExpress4DelphiFileType.Excel;
+    procedure SaveToFile(const AGrid: TcxGrid; const AFileType: TDevExpress4DelphiFileType = TDevExpress4DelphiFileType.EXCEL;
       const AExpand: Boolean = True; const AOpenFileAfter: Boolean = True);
   end;
 
