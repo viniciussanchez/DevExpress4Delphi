@@ -18,7 +18,8 @@ procedure TDevExpressCxGridColumn.AdjustColumnSize(const AColumn: TcxGridDBColum
 var
   I, NewWidth: Integer;
 begin
-  AColumn.MinWidth := AColumn.Width;
+  if AColumn.MinWidth = DEFAULT_MIN_WIDTH then
+    AColumn.MinWidth := AColumn.Width;
   if AMaxWidth <> 0 then
     NewWidth := AMaxWidth - SCROLL_WIDTH
   else
