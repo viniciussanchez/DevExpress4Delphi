@@ -30,7 +30,7 @@ begin
       NewWidth := Application.MainForm.Width - SCROLL_WIDTH;
   end;
   for I := 0 to Pred(AColumn.GridView.ColumnCount) do
-    if (AColumn.GridView.Columns[I] <> AColumn) then
+    if (AColumn.GridView.Columns[I] <> AColumn) and AColumn.GridView.Columns[I].Visible then
       NewWidth := NewWidth - AColumn.GridView.Columns[I].Width;
   AColumn.Width := NewWidth;
 end;
