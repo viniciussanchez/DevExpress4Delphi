@@ -32,6 +32,8 @@ begin
   for I := 0 to Pred(AColumn.GridView.ColumnCount) do
     if (AColumn.GridView.Columns[I] <> AColumn) and AColumn.GridView.Columns[I].Visible then
       NewWidth := NewWidth - AColumn.GridView.Columns[I].Width;
+  for I := 0 to Pred(AColumn.GridView.GroupedColumnCount) do
+    NewWidth := NewWidth - GROUPING_WIDTH; 
   AColumn.Width := NewWidth;
 end;
 
