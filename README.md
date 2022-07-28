@@ -16,10 +16,7 @@ boss install github.com/viniciussanchez/DevExpress4Delphi
 ## Manual Installation
 Add the following folders to your project, in *Project > Options > Resource Compiler > Directories and Conditionals > Include file search path*
 ```
-../DevExpress4Delphi/src/core
-../DevExpress4Delphi/src/helpers
-../DevExpress4Delphi/src/interfaces
-../DevExpress4Delphi/src/types
+../DevExpress4Delphi/src
 ```
 
 ## Getting Started
