@@ -2,7 +2,7 @@ unit DevExpress.CxGrid.Column.Core;
 
 interface
 
-uses DevExpress.CxGrid.Column.Intf, cxGridDBTableView, Vcl.Forms, Vcl.Controls, DevExpress.Consts;
+uses DevExpress.CxGrid.Column.Intf, cxGridDBTableView, Vcl.Forms, Vcl.Controls, DevExpress.Consts, cxGridTableView;
 
 type
   TDevExpressCxGridColumn = class(TInterfacedObject, IDevExpressCxGridColumn)
